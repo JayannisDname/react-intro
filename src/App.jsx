@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import Counters from "./components/Counters";
 import NavBar from "./components/NavBar";
 
@@ -20,8 +20,12 @@ const App = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
+  // useEffect(() => {
+  //   console.log("counters change");
+  // }, [counters]);
+
   const handleDelete = (id) => {
-    setCounters(setCounters.counters.filter((counter) => counter.id !== id));
+    setCounters(counters.filter((counter) => counter.id !== id));
   };
 
   const handleReset = () => {
@@ -70,6 +74,12 @@ const App = () => {
   return (
     <div>
       <NavBar totalCount={getCountersWithValue()} />
+      <button
+        onClick={() => setErrorMessage("new error")}
+        className="btn btn-warning mt-4 ms-3"
+      >
+        Add error
+      </button>
       <div className="container">
         <Counters
           counters={counters}
