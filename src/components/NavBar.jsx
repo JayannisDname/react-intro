@@ -1,21 +1,28 @@
-import React, { Component } from "react";
+import React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { Grid, Badge, IconButton } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-const NavBar = (props) => {
+const NavBar = ({ cartItemCount }) => {
   return (
-    <nav className="navbar bg-dark" data-bs-theme="dark">
-      <div className="bg-dark">
-        <span className="navbar-brand text-white mb-0 h1 ms-2">
-          Cart
-          <span>
-            {props.totalCount > 0 && (
-              <span className="badge bg-secondary ms-2">
-                {props.totalCount}
-              </span>
-            )}
-          </span>
-        </span>
-      </div>
-    </nav>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" style={{ backgroundColor: "black" }}>
+        <Toolbar>
+          <Grid container justify="space-between">
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Wear Me
+            </Typography>
+            <ShoppingCartIcon></ShoppingCartIcon>
+            <Badge badgeContent={cartItemCount} color="primary" />
+          </Grid>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: "flex" }} />
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 };
 

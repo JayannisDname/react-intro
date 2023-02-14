@@ -1,96 +1,42 @@
-import React, { Component, useEffect, useState } from "react";
-import Counters from "./components/Counters";
+import { CssBaseline } from "@mui/material";
+import { Container } from "@mui/system";
+import React from "react";
 import NavBar from "./components/NavBar";
+import Products from "./components/Products";
+import { PRODUCTS_DATA } from "./data/products";
+import { useState } from "react";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 
-const App = () => {
-  const [counters, setCounters] = useState([
-    {
-      id: 1,
-      value: 3,
-    },
-    {
-      id: 2,
-      value: 5,
-    },
-    {
-      id: 3,
-      value: 7,
-    },
-  ]);
+function App() {
+  const [products, setProducts] = useState(PRODUCTS_DATA);
+  const [cartItems, setCartItems] = useState([]);
 
-  const [errorMessage, setErrorMessage] = useState("");
-
-  // useEffect(() => {
-  //   console.log("counters change");
-  // }, [counters]);
-
-  const handleDelete = (id) => {
-    setCounters(counters.filter((counter) => counter.id !== id));
-  };
-
-  const handleReset = () => {
-    setCounters(
-      counters.map((counter) => {
-        return {
-          ...counter,
-          value: 0,
-        };
-      })
-    );
-  };
-
-  const handleIncrement = (id) => {
-    setCounters(
-      counters.map((counter) => {
-        if (counter.id === id) {
+  const addedCart = (product) => {
+    setCartItems(
+      cartItems.map((ci) => {
+        if (ci.product.id === product.id) {
           return {
-            ...counter,
-            value: counter.value + 1,
+            ...ci,
+            quantity: ci.quantity + 1,
           };
+        } else {
+          return {};
         }
-        return counter;
       })
     );
-  };
-
-  const handleDecrement = (id) => {
-    setCounters(
-      counters.map((counter) => {
-        if (counter.id === id) {
-          return {
-            ...counter,
-            value: counter.value - 1,
-          };
-        }
-        return counter;
-      })
-    );
-  };
-
-  const getCountersWithValue = () => {
-    return counters.filter((counter) => counter.value > 0).length;
   };
 
   return (
-    <div>
-      <NavBar totalCount={getCountersWithValue()} />
-      <button
-        onClick={() => setErrorMessage("new error")}
-        className="btn btn-warning mt-4 ms-3"
-      >
-        Add error
-      </button>
-      <div className="container">
-        <Counters
-          counters={counters}
-          onDelete={handleDelete}
-          onIncrement={handleIncrement}
-          onDecrement={handleDecrement}
-          onReset={handleReset}
-        />
-      </div>
-    </div>
+    <>
+      <NavBar cartItemCount={cartItems.length} ml={3} />
+      <Container>
+        <Products onCartItems={addedCart} products={products} />
+      </Container>
+    </>
   );
-};
+}
 
 export default App;
