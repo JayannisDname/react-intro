@@ -1,53 +1,18 @@
+import { Grid } from "@mui/material";
 import React from "react";
-import { Grid, IconButton, Modal } from "@mui/material";
-import {
-  Card,
-  CardHeader,
-  CardMedia,
-  CardContent,
-  CardActions,
-} from "@mui/material";
-import Typography from "@mui/material/Typography";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import WearMe from "./WearMe";
 
-const Products = ({ products, onCartItems }) => {
+const Products = ({ products, onCart, onRemoveCart, cartItems }) => {
   return (
-    <Grid container spacing={3} mt={5}>
+    <Grid container spacing={5}>
       {products.map((product) => (
-        <Grid container justify="center" item xs={2} key={product.id}>
-          <Card>
-            <CardContent>
-              <Typography
-                variant="caption"
-                align="center"
-                sx={{ fontWeight: "bold" }}
-              >
-                {product.category}
-              </Typography>
-            </CardContent>
-            <CardMedia component="img" height="150" image={product.image} />
-            <CardHeader
-              title={product.title}
-              titleTypographyProps={{ variant: "h7" }}
-              style={{ textAlign: "center" }}
-              subheader={`₱${product.price}`}
-              sx={{ fontWeight: "bold" }}
-            />
-            <CardContent>
-              <Typography variant="caption" textAlign="justify">
-                {product.description}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <IconButton
-                set
-                sx={{ backgroundColor: "lightgray" }}
-                onClick={onCartItems}
-              >
-                <AddShoppingCartIcon></AddShoppingCartIcon>
-              </IconButton>
-            </CardActions>
-          </Card>
+        <Grid item md={2} xs={12} key={product.id}>
+          <WearMe
+            cartItem={cartItems.find((item) => item.product.id === product.id)}
+            onCart={onCart}
+            onRemoveCart={onRemoveCart}
+            product={product}
+          />
         </Grid>
       ))}
     </Grid>

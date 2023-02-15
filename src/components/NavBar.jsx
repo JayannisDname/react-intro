@@ -1,29 +1,25 @@
-import React from "react";
+import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Grid, Badge, IconButton } from "@mui/material";
+import { Badge, Grid } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-const NavBar = ({ cartItemCount }) => {
+export default function DenseAppBar({ numCartItems }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "black" }}>
-        <Toolbar>
+        <Toolbar variant="dense">
           <Grid container justify="space-between">
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Wear Me
+            <Typography variant="h6" color="inherit" component="div">
+              WearMe
             </Typography>
             <ShoppingCartIcon></ShoppingCartIcon>
-            <Badge badgeContent={cartItemCount} color="primary" />
+            <Badge badgeContent={numCartItems} color="primary"></Badge>
           </Grid>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: "flex" }} />
         </Toolbar>
       </AppBar>
     </Box>
   );
-};
-
-export default NavBar;
+}
